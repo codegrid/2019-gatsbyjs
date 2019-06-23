@@ -5,7 +5,6 @@ exports.createPages = async ({ actions, graphql }) => {
     {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 1000
       ) {
         edges {
           node {
@@ -25,7 +24,7 @@ exports.createPages = async ({ actions, graphql }) => {
     const outputPath = path.join("posts", node.frontmatter.slug)
     actions.createPage({
       path: outputPath,
-      component: path.resolve(__dirname, "./src/templates/postTemplate.js"),
+      component: path.resolve(__dirname, "./src/templates/PostTemplate.js"),
       context: {
         id: node.id,
       },
