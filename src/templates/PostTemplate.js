@@ -2,8 +2,21 @@ import React from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 
+export const pageQuery = graphql`
+  query($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      html
+      frontmatter {
+        title
+        date
+        author
+      }
+    }
+  }
+`
+
 export default function(props) {
-  const { data: {post} } = props
+  const post = props.data.markdownRemark
   const { frontmatter } = post
   return (
     <Layout>
@@ -21,15 +34,3 @@ export default function(props) {
   )
 }
 
-export const pageQuery = graphql`
-  query PostById($id: String!) {
-    post: markdownRemark(id: { eq: $id }) {
-      html
-      frontmatter {
-        title
-        date(formatString: "YYYY/MM/DD")
-        author
-      }
-    }
-  }
-`
